@@ -2,7 +2,7 @@
 
 Kramer is that old friend that we can ask the most ridiculous things and they always have a (equally as ridiculous) answer.
 So this is basically an AI wrapper, there is no magic in this.
-There are probably a million of those tools that do the exact same thing, but I enjoyed writing and intend on keep making it better and more usefull as the time goes by.
+There are probably a million of those tools that do the exact same thing, but I enjoyed writing and intend on keep making it better and more useful as the time goes by.
 
 ## Supported models
 
@@ -31,10 +31,17 @@ If you don't know what is your key or how to get one, go [here](https://medium.c
 ## FAQ
 
 - Do you plan on supporting more models?
+
 A: Yea maybe some day, since I believe most of them are easy to implement is just a matter of testing, so yea, I'll add support to some models.
 
 - I found this bug.
+
 A: Please open an issue so I can track it, but I don't promise any features.
 
 - What do you think about feature X?
+
 A: If it is cool I might implement it.
+
+- Wtf is logjanitor?
+
+A: logjanitor is our system to compress old log files (and delete even older ones).
