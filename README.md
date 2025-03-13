@@ -7,6 +7,9 @@ There are probably a million of those tools that do the exact same thing, but I 
 ## Supported models
 
 - GPT-4
+- GPT-4o-mini
+
+You can use the environment variable OPENAI_MODEL to configure it
 
 ## How to run it
 
