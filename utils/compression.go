@@ -5,7 +5,52 @@ import (
 	"compress/gzip"
 	"io"
 	"os"
+	"strings"
 )
+
+type Uncompressor interface {
+	Uncompress(filepath string) (string, error)
+}
+
+type GzipUncompressor struct{}
+
+func (GzipUncompressor) Uncompress(filepath string) (string, error) {
+	file, err := os.Open(filepath)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	gzipReader, err := gzip.NewReader(file)
+	if err != nil {
+		return "", err
+	}
+	defer gzipReader.Close()
+
+	buffer, err := io.ReadAll(gzipReader)
+	if err != nil {
+		return "", err
+	}
+
+	outpath := strings.TrimSuffix(filepath, ".gz")
+
+	outFile, err := os.Create(outpath)
+	if err != nil {
+		return "", err
+	}
+
+	defer outFile.Close()
+
+	w := bufio.NewWriter(outFile)
+	_, err = w.Write(buffer)
+	if err != nil {
+		return "", err
+	}
+
+	defer w.Flush()
+
+	return outpath, nil
+}
 
 func CompressFile(src, dst string) error {
 	f, err := os.Open(src)
