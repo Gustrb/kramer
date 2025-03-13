@@ -27,6 +27,7 @@ const (
 var (
 	ErrChatGPTAPIKeyNotSet  = errors.New("chatgpt api key not set")
 	ErrProviderNotSupported = errors.New("provider not supported")
+	ErrChatGPTInvalidModel  = errors.New("chatgpt invalid model")
 )
 
 func ProviderFactory(store repository.Store, provider Provider) (AssistantProvider, error) {
@@ -38,7 +39,17 @@ func ProviderFactory(store repository.Store, provider Provider) (AssistantProvid
 			return nil, ErrChatGPTAPIKeyNotSet
 		}
 
-		return NewChatGPTAssistantProvider(store, ChatGPT4BModel, apiKey), nil
+		model := ChatGPT4oMiniModel
+		m := os.Getenv("OPENAI_MODEL")
+		if m != "" {
+			if IsValidModel(Model(m)) {
+				model = Model(m)
+			} else {
+				return nil, ErrChatGPTInvalidModel
+			}
+		}
+
+		return NewChatGPTAssistantProvider(store, model, apiKey), nil
 
 	default:
 		return nil, ErrProviderNotSupported

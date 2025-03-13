@@ -21,8 +21,18 @@ const (
 )
 
 const (
-	ChatGPT4BModel Model = "gpt-4"
+	ChatGPT4BModel     Model = "gpt-4"
+	ChatGPT4oMiniModel Model = "gpt-4o-mini"
 )
+
+func IsValidModel(model Model) bool {
+	switch model {
+	case ChatGPT4BModel, ChatGPT4oMiniModel:
+		return true
+	default:
+		return false
+	}
+}
 
 type Message struct {
 	Role    Role   `json:"role"`
